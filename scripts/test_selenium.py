@@ -2,26 +2,27 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
-import time
+import os
+import time  # Import time for sleep functionality
 
-# Path to your ChromeDriver
-chromedriver_path = '/usr/local/bin/chromedriver'  # Update this path if needed
+# Get the path to the Chrome binary
+chrome_bin_path = os.getenv("CHROME_BIN")
 
-# Set up the ChromeDriver service
-service = Service(chromedriver_path)
-
-# Set up Chrome options to run in headless mode
+# Set up Chrome options
 options = Options()
+options.binary_location = chrome_bin_path
+
+# Configure Chrome to run in headless mode (no UI)
 options.add_argument("--headless")  # Run Chrome in headless mode
 options.add_argument("--no-sandbox")  # Prevents errors related to sandboxing in some environments
 options.add_argument("--disable-dev-shm-usage")  # Avoids issues with shared memory in Docker and AWS environments
 options.add_argument("--remote-debugging-port=9222")  # Optional for debugging, might help in some cases
 
-# Set up the Chrome WebDriver using the service and options
-driver = webdriver.Chrome(service=service, options=options)
+# Set up the Chrome WebDriver using the options
+driver = webdriver.Chrome(options=options)
 
-# Open your HTML page (local file path or hosted URL)
-driver.get("file:///var/www/html/index.html")  # Ensure this path is correct
+# Open the local HTML file (make sure the path is correct)
+driver.get("file:///var/www/html/index.html")  # Adjust the path as needed
 
 # Wait for the page to load (optional, to give the page time to load)
 time.sleep(2)
