@@ -22,7 +22,7 @@ options.add_argument("--remote-debugging-port=9222")  # Optional for debugging, 
 driver = webdriver.Chrome(options=options)
 
 # Open the local HTML file (make sure the path is correct)
-driver.get("file:///var/www/html/index.html")  # Adjust the path as needed
+driver.get("var/www/html/index.html")  # Adjust the path as needed
 
 # Wait for the page to load (optional, to give the page time to load)
 time.sleep(2)
