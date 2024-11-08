@@ -2,11 +2,11 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 
-# Set up the Chrome WebDriver
-driver = webdriver.Chrome(executable_path='/path/to/chromedriver')  # Update this path
+# Set up the Chrome WebDriver with the correct path to chromedriver
+driver = webdriver.Chrome(executable_path='/usr/local/bin/chromedriver')  # Update this path
 
 # Open your HTML page (local file path or hosted URL)
-driver.get("file:///path/to/your/index.html")  # Change this to the path of your HTML file
+driver.get("file:///var/www/html/index.html")  # Change this to the path of your HTML file
 
 # Wait for the page to load (optional, to give the page time to load)
 time.sleep(2)
