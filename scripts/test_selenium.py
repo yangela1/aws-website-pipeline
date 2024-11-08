@@ -22,20 +22,21 @@ options.add_argument("--remote-debugging-port=9222")  # Optional for debugging, 
 driver = webdriver.Chrome(options=options)
 
 # Open the local HTML file (make sure the path is correct)
-driver.get("var/www/html/index.html")  # Adjust the path as needed
+driver.get("file:///var/www/html/index.html") # Adjust the path as needed
 
 # Wait for the page to load (optional, to give the page time to load)
-time.sleep(2)
+time.sleep(5)
 
-# Check if the link is displayed correctly
+# Check if the specific text is displayed
 try:
-    link = driver.find_element(By.LINK_TEXT, "Link to view my resume")
-    if link.is_displayed():
-        print("Link is visible.")
+    # Locate the <h1> element by its text content
+    header = driver.find_element(By.XPATH, "//*[contains(text(), 'Angela')]")
+    if header.is_displayed():
+        print("Header is visible: 'Angela'")
     else:
-        print("Link is not visible.")
+        print("Header is not visible.")
 except Exception as e:
-    print("Link not found:", e)
+    print("Header not found:", e)
 
 # Close the browser after the test
 driver.quit()
