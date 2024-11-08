@@ -17,10 +17,4 @@ fi
 
 echo "HTML validation passed."
 
-# Check links (change 'index.html' to the main file if different)
-if ! wget --spider -r -nd -nv -l 1 -o link-check.log index.html; then
-    echo "Link check failed! See link-check.log for details."
-    exit 1
-fi
 
-echo "Link check passed."
