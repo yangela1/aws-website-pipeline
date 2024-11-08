@@ -5,7 +5,7 @@ echo "Running HTML validation and link checking..."
 # Check if HTML Tidy is installed
 if ! command -v tidy &> /dev/null; then
     echo "HTML Tidy is not installed. Installing it now..."
-    sudo apt-get update && sudo apt-get install -y tidy
+    sudo yum update -y && sudo yum install -y tidy
 fi
 
 # Validate HTML files
