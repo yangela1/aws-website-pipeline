@@ -75,14 +75,15 @@ artifacts:
 - Add Deploy stage to CodePipeline. Select `AWS CodeDeploy` for Deploy provider. Choose the newly created Application and Deployment Group. Ensure the EC2 instance has permissions and an agent running for CodeDeploy. In the repository include `appspec.yml` file that defines how files are deployed to the instance.
 
 ### Step 5: Finalize and Review Pipeline
-- ensure each stage (Source, Build, Test, Deploy) is correctly configured.
+- Ensure each stage (Source, Build, Test, Deploy) is correctly configured.
 - Create the pipeline. It will automatically start and rebuild everytime any changes are detected from the Github repo
 
 ### Step 6: View the deployed website
 - Select the `Instance Id` from Deploy stage. Copy the public IPv4 address of the EC2 instance into the browser
 
 ### Optional Step:  Test Stage (CodeBuild)
-- Create a new Test Project - Choose `GitHub` for Source, Linux env, attach a new Service role, in the buildspec.yml input the following commands to run the test script (ensure the script is in the ./scripts./test_selenium.py directory): 
+- This step is for creating an automated testing stage that tests your code before deployment using Selenium 
+- Create a new Test Project - Choose `GitHub` for Source, Linux env, attach a new Service role, in the `buildspec.yml` input the following commands to run the test script (ensure the script is in the ./scripts./test_selenium.py directory): 
 
 ```yml
 version: 0.2
@@ -119,7 +120,7 @@ artifacts:
 ```
 * this installs Google Chrome, Python, ChromeDriver, Selenium and runs the script
 
-- Add Test stage to CodePipeline. Select `Add Stage`, `Add action group`,  select `AWS CodeBuild` for Action provider. Select `BuildArtifact` for Input artifacts and choose the newly created Test Project for Project Name.
+- Add Test stage to CodePipeline in between the Build and Deploy stages. Select `Add Stage`, `Add action group`,  select `AWS CodeBuild` for Action provider. Select `BuildArtifact` for Input artifacts and choose the newly created Test Project for Project Name.
 
 - Save changes the click `Release change` to deploy updated pipeline
 
@@ -127,6 +128,6 @@ artifacts:
 - Use the Pipeline details page to monitor stages
 - Check logs in CloudWatch or within the details popup if any issues arrise during CodeBuild or CodeDeploy stages 
 - Source: Ensure the correct Github repo is selected 
-- Build: Ensure each CodeBuild project has its own buildspec.yml and has the correct input artifacts (the Test Stage requires the `BuildArtifact` from the Build stage for testing)
+- Build: Ensure each CodeBuild project has its own `buildspec.yml` and has the correct input artifacts (the Test Stage requires the `BuildArtifact` from the Build stage for testing)
 - Deploy: Ensure the repo has an `appspec.yml file`, the EC2 instance has all required dependencies installed (ruby, CodeDeploy agent) within User Data section. To check if the CodeDeploy agent is running, SSH into the EC2 and do `sudo service codedeploy-agent status`.
 - Test: View the logs to see testing information
