@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Running HTML validation and link checking..."
+echo "Running HTML validation"
 
 # Check if HTML Tidy is installed
 if ! command -v tidy &> /dev/null; then
